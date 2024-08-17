@@ -19,4 +19,4 @@ Los pasos para el despliegue de la solución son:
 4. Ingrese al recurso creado de Azure Datafactory llamado dfprarkano y luego integre el repositorio a Git Hub con el siguiente enlace: https://github.com/nestorjhovanyquimbay778/prarkano
 5. Realice la verificación de los objetos importados (Canalizaciones, Conjuntos de datos, Flujos de datos)
 6. Ejecute el fjulo de datos llamado
-7. Ejecute en SQL Database el script llamado scripts/
+7. Ejecute en SQL Database el script llamado scripts/Quejas_producto_subproducto2023.sql
