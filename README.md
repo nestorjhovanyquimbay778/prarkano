@@ -2,7 +2,7 @@
 El presente repositorio contiene una solución de ETL automatizada utilizando Azure Data factory y despliegue de infraestructura mediante plantillas ARM.
 ## Estructura del proyecto
 - adf/: Archivos Json con la información de Azure data factory
-    - pipelines/: Canalizacion creada para la solución
+    - pipeline/: Canalizacion creada para la solución
     - datasets/: Conjuntos de datos creados para la solución
     - dataflows/: Flujos de datos creados dentro del proceso.
     - linkedServices/: Servicios vinculados
