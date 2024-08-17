@@ -22,3 +22,9 @@ Los pasos para el despliegue de la solución son:
 7. Realice la verificación de los objetos importados (Canalizaciones, Conjuntos de datos, Flujos de datos)
 8. Ejecute el fjulo de datos llamado
 9. Ejecute en SQL Database el script llamado scripts/Quejas_producto_subproducto2023.sql
+
+Nota: 
+    - Los objetos de Azure fueron creados en la Región East Us 2.
+    - Los datos del usuario del Servidor SQL database son:
+      - Usuario: Administrador
+      - Contraseña: prarkano123*
