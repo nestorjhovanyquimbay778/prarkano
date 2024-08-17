@@ -10,4 +10,12 @@ El presente repositorio contiene una solución de ETL automatizada utilizando Az
 - arm-templates/: Plantillas ARM para desplegar los recursos de Azure
 - scripts/: Scripts para la creación de la Tabla y la consulta del punto 2(sentencia SQL que arroje el número de quejas para cada producto y subproducto para el año 2023 dividido por trimestre).
 
-##
+## Despliegue y Uso
+Los pasos para el despliegue de la solución son:
+
+1. Ingrese al portal de Azure.
+2. Despliegue las plantillas ARM: Para esto copie el contenido de la plantilla ubucada en arm-templates/ la cual se encuentra en formato Json y lo pega en el editor de plantillas de azure.
+3. Ingrese SQL Database y ejecute el Script llamado  
+4. Ingrese al recurso creado de Azure Datafactory llamado dfprarkano y luego integre el repositorio a Git Hub con el siguiente enlace: https://github.com/nestorjhovanyquimbay778/prarkano
+5. Realice la verificación de los objetos importados (Canalizaciones, Conjuntos de datos, Flujos de datos)
+6. Ejecute el fjulo de datos llamado 
