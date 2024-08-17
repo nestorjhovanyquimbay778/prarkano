@@ -1,0 +1,97 @@
+{
+	"name": "Serv_vin_complaints",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "complaints.csv",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Date received",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "Sub-product",
+				"type": "String"
+			},
+			{
+				"name": "Issue",
+				"type": "String"
+			},
+			{
+				"name": "Sub-issue",
+				"type": "String"
+			},
+			{
+				"name": "Consumer complaint narrative",
+				"type": "String"
+			},
+			{
+				"name": "Company public response",
+				"type": "String"
+			},
+			{
+				"name": "Company",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "ZIP code",
+				"type": "String"
+			},
+			{
+				"name": "Tags",
+				"type": "String"
+			},
+			{
+				"name": "Consumer consent provided?",
+				"type": "String"
+			},
+			{
+				"name": "Submitted via",
+				"type": "String"
+			},
+			{
+				"name": "Date sent to company",
+				"type": "String"
+			},
+			{
+				"name": "Company response to consumer",
+				"type": "String"
+			},
+			{
+				"name": "Timely response?",
+				"type": "String"
+			},
+			{
+				"name": "Consumer disputed?",
+				"type": "String"
+			},
+			{
+				"name": "Complaint ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

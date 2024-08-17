@@ -1,0 +1,141 @@
+{
+	"name": "Carga_ConsumerComplaints",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Serv_vin_complaints",
+						"type": "DatasetReference"
+					},
+					"name": "CSVConsumerComplaints"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "ConsumerComplaints"
+				},
+				{
+					"dataset": {
+						"referenceName": "Errores",
+						"type": "DatasetReference"
+					},
+					"name": "ErroresCarga"
+				}
+			],
+			"transformations": [
+				{
+					"name": "dvnumerocol"
+				},
+				{
+					"name": "CondicionVal"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     tamlote as integer (100000)",
+				"}",
+				"source(output(",
+				"          {Date received} as string,",
+				"          Product as string,",
+				"          {Sub-product} as string,",
+				"          Issue as string,",
+				"          {Sub-issue} as string,",
+				"          {Consumer complaint narrative} as string,",
+				"          {Company public response} as string,",
+				"          Company as string,",
+				"          State as string,",
+				"          {ZIP code} as string,",
+				"          Tags as string,",
+				"          {Consumer consent provided?} as string,",
+				"          {Submitted via} as string,",
+				"          {Date sent to company} as string,",
+				"          {Company response to consumer} as string,",
+				"          {Timely response?} as string,",
+				"          {Consumer disputed?} as string,",
+				"          {Complaint ID} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CSVConsumerComplaints",
+				"CSVConsumerComplaints derive(Col_Val = iif(\r",
+				"   !(\r",
+				"        length({Date received}) == 10 && \r",
+				"        toString(toDate({Date received}, 'yyyy-MM-dd')) == {Date received}\r",
+				"    ) ||\r",
+				"    !(\r",
+				"        length({Date sent to company}) == 10 && \r",
+				"        toString(toDate({Date sent to company}, 'yyyy-MM-dd')) == {Date sent to company}\r",
+				"    ),\r",
+				"  'Invalid',\r",
+				"  'Valid'\r",
+				"),",
+				"          Con_Datereceived = toDate({Date received}, 'yyyy-MM-dd'),",
+				"          Con_DateSentToCompany = toDate({Date sent to company}, 'yyyy-MM-dd')) ~> dvnumerocol",
+				"dvnumerocol split(Col_Val== 'Valid',",
+				"     Col_Val=='Invalid',",
+				"     disjoint: false) ~> CondicionVal@(DatosValidos, DatosInvalidos)",
+				"CondicionVal@DatosValidos sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     input(",
+				"          Datereceived as date,",
+				"          Product as string,",
+				"          Sub_product as string,",
+				"          Issue as string,",
+				"          Sub_issue as string,",
+				"          Consumer_complaint_narrative as string,",
+				"          Company_public_response as string,",
+				"          Company as string,",
+				"          State as string,",
+				"          ZIP_code as string,",
+				"          Tags as string,",
+				"          Consumer_consent_provided as string,",
+				"          Submitted_via as string,",
+				"          DateSentToCompany as date,",
+				"          Company_response_consumer as string,",
+				"          Timely_response as string,",
+				"          Consumer_disputed as string,",
+				"          Complaint_ID as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     batchSize: ($tamlote),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Datereceived = Con_Datereceived,",
+				"          Product,",
+				"          Sub_product = {Sub-product},",
+				"          Issue,",
+				"          Sub_issue = {Sub-issue},",
+				"          Consumer_complaint_narrative = {Consumer complaint narrative},",
+				"          Company_public_response = {Company public response},",
+				"          Company,",
+				"          State,",
+				"          ZIP_code = {ZIP code},",
+				"          Tags,",
+				"          Consumer_consent_provided = {Consumer consent provided?},",
+				"          Submitted_via = {Submitted via},",
+				"          DateSentToCompany = Con_DateSentToCompany,",
+				"          Company_response_consumer = {Company response to consumer},",
+				"          Timely_response = {Timely response?},",
+				"          Consumer_disputed = {Consumer disputed?},",
+				"          Complaint_ID = {Complaint ID}",
+				"     )) ~> ConsumerComplaints",
+				"CondicionVal@DatosInvalidos sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ErroresCarga"
+			]
+		}
+	}
+}

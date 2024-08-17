@@ -1,0 +1,9 @@
+{
+	"name": "dfprarkano",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1b6a9d93-ba07-4158-bd5d-bfd780aa330e",
+		"tenantId": "b5323b53-0431-4480-97ef-643a54e7f649"
+	}
+}

@@ -1,0 +1,90 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Datereceived",
+				"type": "date"
+			},
+			{
+				"name": "Product",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_product",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Issue",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_issue",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Consumer_complaint_narrative",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Company_public_response",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Company",
+				"type": "nvarchar"
+			},
+			{
+				"name": "State",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ZIP_code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Tags",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Consumer_consent_provided",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Submitted_via",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DateSentToCompany",
+				"type": "date"
+			},
+			{
+				"name": "Company_response_consumer",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Timely_response",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Consumer_disputed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Complaint_ID",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ConsumerComplaints"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

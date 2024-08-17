@@ -1,0 +1,137 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Serv_vin_complaints",
+						"type": "DatasetReference"
+					},
+					"name": "CSVConsumerComplaints"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "ConsumerComplaints"
+				}
+			],
+			"transformations": [
+				{
+					"name": "dvnumerocol"
+				},
+				{
+					"name": "CondicionVal"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {Date received} as string,",
+				"          Product as string,",
+				"          {Sub-product} as string,",
+				"          Issue as string,",
+				"          {Sub-issue} as string,",
+				"          {Consumer complaint narrative} as string,",
+				"          {Company public response} as string,",
+				"          Company as string,",
+				"          State as string,",
+				"          {ZIP code} as string,",
+				"          Tags as string,",
+				"          {Consumer consent provided?} as string,",
+				"          {Submitted via} as string,",
+				"          {Date sent to company} as string,",
+				"          {Company response to consumer} as string,",
+				"          {Timely response?} as string,",
+				"          {Consumer disputed?} as string,",
+				"          {Complaint ID} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CSVConsumerComplaints",
+				"CSVConsumerComplaints derive(Col_Val = iif(\r",
+				"  isNull({Date received}) || \r",
+				"  isNull(Product) ||\r",
+				"  isNull({Sub-product}) ||\r",
+				"  isNull(Issue) ||\r",
+				"  isNull({Sub-issue}) ||\r",
+				"  isNull({Consumer complaint narrative}) ||\r",
+				"  isNull({Company public response}) ||\r",
+				"  isNull(Company) ||\r",
+				"  isNull(State) ||\r",
+				"  isNull({ZIP code}) ||\r",
+				"  isNull(Tags) ||\r",
+				"  isNull({Consumer consent provided?}) ||\r",
+				"  isNull({Submitted via}) ||\r",
+				"  isNull({Date sent to company}) ||\r",
+				"  isNull({Company response to consumer}) ||\r",
+				"  isNull({Timely response?}) ||\r",
+				"  isNull({Consumer disputed?}) ||\r",
+				"  isNull({Complaint ID}),\r",
+				"  'Invalid',\r",
+				"  'Valid'\r",
+				"),",
+				"          Con_Datereceived = toDate({Date received}, 'yyyy-MM-dd'),",
+				"          Con_DateSentToCompany = toDate({Date sent to company}, 'yyyy-MM-dd')) ~> dvnumerocol",
+				"dvnumerocol split(Col_Val== 'Valid',",
+				"     Col_Val=='Invalid',",
+				"     disjoint: false) ~> CondicionVal@(DatosValidos, DatosInvalidos)",
+				"CondicionVal@DatosValidos sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     input(",
+				"          Datereceived as date,",
+				"          Product as string,",
+				"          Sub_product as string,",
+				"          Issue as string,",
+				"          Sub_issue as string,",
+				"          Consumer_complaint_narrative as string,",
+				"          Company_public_response as string,",
+				"          Company as string,",
+				"          State as string,",
+				"          ZIP_code as string,",
+				"          Tags as string,",
+				"          Consumer_consent_provided as string,",
+				"          Submitted_via as string,",
+				"          DateSentToCompany as date,",
+				"          Company_response_consumer as string,",
+				"          Timely_response as string,",
+				"          Consumer_disputed as string,",
+				"          Complaint_ID as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          {Date received} = Con_Datereceived,",
+				"          Product,",
+				"          {Sub-product},",
+				"          Issue,",
+				"          {Sub-issue},",
+				"          {Consumer complaint narrative},",
+				"          {Company public response},",
+				"          Company,",
+				"          State,",
+				"          {ZIP code},",
+				"          Tags,",
+				"          {Consumer consent provided?},",
+				"          {Submitted via},",
+				"          {Date sent to company} = Con_DateSentToCompany,",
+				"          {Company response to consumer},",
+				"          {Timely response?},",
+				"          {Consumer disputed?},",
+				"          {Complaint ID},",
+				"          Col_Val",
+				"     )) ~> ConsumerComplaints"
+			]
+		}
+	}
+}

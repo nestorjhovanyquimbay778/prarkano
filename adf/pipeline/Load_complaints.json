@@ -1,0 +1,37 @@
+{
+	"name": "Load_complaints",
+	"properties": {
+		"activities": [
+			{
+				"name": "Carga de Datos",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Carga_ConsumerComplaints",
+						"type": "DataFlowReference",
+						"parameters": {
+							"tamlote": "100000"
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-08-16T23:25:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
