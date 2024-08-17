@@ -14,8 +14,9 @@ El presente repositorio contiene una solución de ETL automatizada utilizando Az
 Los pasos para el despliegue de la solución son:
 
 1. Ingrese al portal de Azure.
-2. Despliegue las plantillas ARM: Para esto copie el contenido de la plantilla ubucada en arm-templates/ la cual se encuentra en formato Json y lo pega en el editor de plantillas de azure.
-3. Ingrese SQL Database y ejecute el Script llamado  
+2. Despliegue las plantillas ARM: Para esto copie el contenido de la plantilla ubucada en arm-templates/XXXX la cual se encuentra en formato Json y lo pega en el editor de plantillas de azure.
+3. Ingrese SQL Database y ejecute el Script llamado  scripts/ConsumerComplaints.sql
 4. Ingrese al recurso creado de Azure Datafactory llamado dfprarkano y luego integre el repositorio a Git Hub con el siguiente enlace: https://github.com/nestorjhovanyquimbay778/prarkano
 5. Realice la verificación de los objetos importados (Canalizaciones, Conjuntos de datos, Flujos de datos)
-6. Ejecute el fjulo de datos llamado 
+6. Ejecute el fjulo de datos llamado
+7. Ejecute en SQL Database el script llamado scripts/
